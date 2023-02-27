@@ -1,0 +1,105 @@
+
+Reverse a linked list A from position B to C.
+
+
+Example Input
+Input 1:
+
+ A = 1 -> 2 -> 3 -> 4 -> 5
+ B = 2
+ C = 4
+
+Input 2:
+
+ A = 1 -> 2 -> 3 -> 4 -> 5
+ B = 1
+ C = 5
+
+
+Example Output
+Output 1:
+
+ 1 -> 4 -> 3 -> 2 -> 5
+Output 2:
+
+ 5 -> 4 -> 3 -> 2 -> 1
+
+
+
+//CODE
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {             //given    //from   // to
+    public ListNode reverseBetween(ListNode A, int B, int C) {
+
+        ListNode temp = A;
+        ListNode first = null;
+        ListNode last = null;
+        ListNode from = null;
+        ListNode to = null;
+        int count = 0;
+
+        while(temp != null){
+            
+            count = count + 1;
+            if(count <  B){
+                first = temp;
+            }
+            if(count == B){
+                from = temp;
+            }
+            if(count == C){
+                to = temp;
+                last = to.next;
+            }
+
+            temp = temp.next;
+            
+        }
+        to.next = null;
+        reverse(from);
+
+        if(first != null){
+            first.next = to;
+        }
+
+        else{
+            A = to; // mapping to --> head for test case B == 1 (Just)
+        }
+
+        from.next=last;
+        
+        return A;
+
+
+    }
+
+
+
+   public static ListNode reverse(ListNode A){
+
+        ListNode h1 = A;
+        ListNode h2= null;
+       
+
+       while(h1 != null){
+            ListNode temp  = h1;
+            h1 = h1.next;
+            temp.next = h2;
+            h2 = temp;
+        }
+
+        return h2;
+       
+    }
+}
